@@ -62,13 +62,14 @@ class overturn(Engine):
         logger.info('Submit job on '+ jobserver)
         comb_dir = parent_dir + slugify(comb) + '/'
         job_sub = SshProcess('cd ' + comb_dir +
-                             ' ; /usr/local/bin/qsub /home/stephane/ExamplePBS/batch_single', jobserver).run()
-#        print 'job : ',job_sub.stdout
+                             ' ; /usr/local/bin/qsub /home/stephane/ExamplePBS/batch_single',
+                             jobserver).run()
+
         return job_sub.stdout.splitlines()[-1].split('.')[0]
 
     def is_job_running(self, job_id=None):
         """ """
-        get_state = SshProcess('qstat ' + str(job_id), jobserver)
+        get_state = SshProcess('qstat -f ' + str(job_id), jobserver)
         get_state.ignore_exit_code = True
         get_state.run()
         return get_state.ok
@@ -96,14 +97,15 @@ class overturn(Engine):
         threads = []
         while len(self.sweeper.get_remaining()) > 0:
             comb = self.sweeper.get_next()
-            print 'comb = ', comb
-#            t = Thread(target=self.workflow,
-#                       args=(comb,))
-            t = Thread(target=self.workflow(comb))#,
-#                        args=comb)
+            logger.info('comb = ', comb)
+            t = Thread(target=self.workflow, args=(comb,))
             t.daemon = True
             threads.append(t)
             t.start()
+        
+        for t in threads:
+			t.join()
+            
 
 
 if __name__ == "__main__":
