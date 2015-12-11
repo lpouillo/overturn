@@ -9,6 +9,7 @@ import os
 import f90nml
 from threading import Thread
 from execo import SshProcess, Put, sleep
+from execo.log import style
 from execo_engine import Engine, ParamSweeper, sweep, logger, slugify
 import math
 
@@ -42,7 +43,7 @@ class overturn(Engine):
                                comb_dir + 'Op ; ', jobserver).run()
         # Generate par file
         par_file = comb_dir + 'par_' + slugify(comb)
-        logger.info('par_file = ', par_file)
+        logger.info('par_file = %s', style.emph(par_file))
         nml = f90nml.read('template.nml')
         nml['refstate']['ra0'] = float(comb['RA'])
         nml['tracersin']['K_Fe'] = comb['KFe']
