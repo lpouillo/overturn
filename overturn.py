@@ -97,7 +97,7 @@ class overturn(Engine):
         threads = []
         while len(self.sweeper.get_remaining()) > 0:
             comb = self.sweeper.get_next()
-            logger.info('comb = ', comb)
+            logger.info('comb = %s', comb)
             t = Thread(target=self.workflow, args=(comb,))
             t.daemon = True
             threads.append(t)
