@@ -41,8 +41,8 @@ class overturn(Engine):
         make_dirs = SshProcess('mkdir -p ' + comb_dir + 'Img ; mkdir -p ' +
                                comb_dir + 'Op ; ', jobserver).run()
         # Generate par file
-        par_file = 'par_' + slugify(comb)
-        print 'par_file = ', par_file
+        par_file = comb_dir + 'par_' + slugify(comb)
+        logger.info('par_file = ', par_file)
         nml = f90nml.read('template.nml')
         nml['refstate']['ra0'] = float(comb['RA'])
         nml['tracersin']['K_Fe'] = comb['KFe']
