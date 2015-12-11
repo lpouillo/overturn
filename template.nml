@@ -1,0 +1,105 @@
+&switches
+	try_continue=.false.
+	dimensional_units=.false.
+	tracers=.true.
+&end
+
+&geometry	
+	shape='spherical'
+	r_cmb=1.19d0
+	nxtot=1
+	nytot=512
+	nztot=64
+	aspect_ratio(1)=1.0
+	aspect_ratio(2)=10.0
+	zspacing_mode='PowerLaw'
+	kmaxt=0.5
+	kmaxb=0.5
+&end
+
+&refstate
+	Ra0=1.e5
+	Rh=0.0
+	Tref_surf=1.0
+&end
+
+&boundaries
+	topT_val=0.0
+	botT_val=1.
+	outT_val=0.0
+	BottomPhaseChange=.false.
+	TopPhaseChange=.false.
+	BotPphase=1.d2
+&end
+
+&t_init
+	imode_t='solched'
+	amp_t=0.05
+	blthick=0.03
+&end
+
+&timein
+	nsteps=100000
+	nwrite=100
+	alpha_adv=0.25
+	alpha_diff=0.25
+	advection_scheme='TVD'
+&end
+
+&viscosity
+	ietalaw=0
+&end
+
+
+&iteration
+	relax_kernel='direct'
+&end
+
+&multi 
+&end
+
+&ioin
+	output_file_stem='Op/out'
+	t_write=.true.
+	vp_write = .true.
+	tra_write = .true.
+	overwrite_old_files=.true.
+&end
+
+&compin
+&end
+
+&melt
+&end
+
+&phase
+	nphase_systems = 1
+&end
+
+&continents
+&end
+
+&tracersin
+	overturn = .true.
+	mode_init_overturn = 'D_ched'
+	tracers_everywhere = .true.
+	ntracers = 1000000
+	B_basalt = 25
+	Fe_eut = 0.8
+	K_Fe = 0.8
+	Fe_cont = 0.1
+&end
+
+
+&plot
+	npix=300000
+	plot_file_stem='Img/out'
+	dots=.false.
+	auto_t_scale=.true.
+	z_xyslice=0.5
+	t_plot=.true.
+	c_plot=.true.
+	v_plot=.false.
+	eta_plot=.false.
+&end
+
