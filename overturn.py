@@ -26,7 +26,7 @@ class overturn(Engine):
         """Define the parameter space and return a sweeper."""
         parameters = {
             'RA': ['1.e5', '1.e6', '1.e7'],
-            'RCMB' : [1.19, 3.29],
+            'RCMB' : [2.],
             'KFe' : [0.85, 0.9, 0.95, 0.99]
             }
         sweeps = sweep(parameters)
@@ -42,7 +42,7 @@ class overturn(Engine):
         make_dirs = SshProcess('mkdir -p ' + comb_dir + 'Img ; mkdir -p ' +
                                comb_dir + 'Op ; ', jobserver).run()
         # Generate par file
-        par_file = comb_dir + 'par_' + slugify(comb)
+        par_file = 'par_' + slugify(comb)
         logger.info('par_file = %s', style.emph(par_file))
         nml = f90nml.read('template.nml')
         nml['refstate']['ra0'] = float(comb['RA'])
