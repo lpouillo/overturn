@@ -92,6 +92,9 @@ class overturn(Engine):
             threads.append(t)
             t.start()
 
+		# Important de joiner les threads à la fin ...
+		for t in threads:
+			t.join()
 
 if __name__ == "__main__":
     engine = overturn()
