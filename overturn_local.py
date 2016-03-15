@@ -68,11 +68,11 @@ class overturn(Engine):
                              stdout=sp.PIPE, stderr=sp.STDOUT)
         #        print 'job : ',job_sub.stdout
         # print('job=', job_sub.stdout.readlines())
-        line = job_sub.stdout.readlines()[-1]
+        # line = job_sub.stdout.readlines()[-1]
         # for line in job_sub.stdout.readlines():
-        print('line=', line , line.split('.')[0])
-        retval = job_sub.wait()
-        return job_sub.stdout.readlines()[-1].split('.')[0]
+        # print('line=', line , line.split('.')[0])
+        # retval = job_sub.wait()
+        return #job_sub.stdout.readlines()[-1].split('.')[0]
 
     def workflow(self, comb):
         self.create_par_file(comb)
